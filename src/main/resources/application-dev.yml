@@ -1,0 +1,21 @@
+server:
+  port: 9191
+spring:
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+
+eureka:
+  instance:
+    hostname: "${vcap.application.uris[0]:localhost}"
+    nonSecurePort: 80
+    metadataMap:
+      instanceId: "${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}"
+    leaseRenewalIntervalInSeconds: 5
+    prefer-ip-address: true
+  client:
+    region: "default"
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: "http://registry:8761/eureka/"
